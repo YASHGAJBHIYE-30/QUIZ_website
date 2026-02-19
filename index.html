@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="QuizGlass – Glassmorphism MCQ Quiz App. Choose your role to get started." />
+  <title>QuizGlass – Choose Your Role</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Landing-specific styles */
+    .landing-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      gap: 48px;
+    }
+
+    .landing-hero {
+      text-align: center;
+    }
+
+    .landing-hero .app-logo {
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.7));
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 16px rgba(167, 139, 250, 0.6));
+      }
+
+      50% {
+        filter: drop-shadow(0 0 32px rgba(167, 139, 250, 1));
+      }
+    }
+
+    .landing-hero h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800;
+      background: linear-gradient(90deg, #e0c9ff, #a5f3fc, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .landing-hero p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 420px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Role cards */
+    .role-cards {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .role-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: var(--glass-shadow);
+      padding: 40px 36px;
+      width: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      text-decoration: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.35s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .role-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), transparent);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .role-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .role-card:hover::before {
+      opacity: 1;
+    }
+
+    .role-card.teacher-card:hover {
+      border-color: rgba(167, 139, 250, 0.55);
+      box-shadow: 0 20px 60px rgba(124, 58, 237, 0.35);
+    }
+
+    .role-card.student-card:hover {
+      border-color: rgba(103, 232, 249, 0.55);
+      box-shadow: 0 20px 60px rgba(6, 182, 212, 0.35);
+    }
+
+    .role-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .role-card.teacher-card .role-icon {
+      background: rgba(124, 58, 237, 0.25);
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      color: var(--accent);
+      box-shadow: 0 0 24px rgba(124, 58, 237, 0.35);
+    }
+
+    .role-card.student-card .role-icon {
+      background: rgba(6, 182, 212, 0.2);
+      border: 1px solid rgba(103, 232, 249, 0.35);
+      color: #67e8f9;
+      box-shadow: 0 0 24px rgba(6, 182, 212, 0.3);
+    }
+
+    .role-label {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .role-desc {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .role-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .teacher-card .role-btn {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+    }
+
+    .teacher-card .role-btn:hover {
+      box-shadow: 0 6px 24px rgba(124, 58, 237, 0.65);
+    }
+
+    .student-card .role-btn {
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(6, 182, 212, 0.4);
+    }
+
+    .student-card .role-btn:hover {
+      box-shadow: 0 6px 24px rgba(6, 182, 212, 0.65);
+    }
+
+    /* Quiz status indicator */
+    .quiz-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #94a3b8;
+      transition: background 0.4s;
+    }
+
+    .status-dot.live {
+      background: var(--success);
+      box-shadow: 0 0 8px rgba(52, 211, 153, 0.7);
+      animation: blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.4
+      }
+    }
+
+    @media(max-width:620px) {
+      .role-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .role-card {
+        width: min(100%, 320px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+  <div class="bg-blob blob3"></div>
+
+  <div class="landing-wrap">
+
+    <!-- Hero -->
+    <div class="landing-hero animate__animated animate__fadeInDown">
+      <div class="app-logo"><i class="fa-solid fa-graduation-cap"></i></div>
+      <h1>QuizGlass</h1>
+      <p>A beautiful glassmorphism quiz platform. Build, share, and take 5-question MCQ quizzes in style.</p>
+    </div>
+
+    <!-- Quiz live status -->
+    <div class="quiz-status animate__animated animate__fadeIn" id="quizStatus">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">No quiz published yet</span>
+    </div>
+
+    <!-- Role selection -->
+    <div class="role-cards">
+
+      <!-- Teacher -->
+      <a class="role-card teacher-card animate__animated animate__fadeInLeft" href="teacher.html"
+        style="animation-delay:0.1s">
+        <div class="role-icon"><i class="fa-solid fa-chalkboard-teacher"></i></div>
+        <span class="role-label">I'm a Teacher</span>
+        <p class="role-desc">Create a 5-question MCQ quiz, set correct answers, and publish it for students.</p>
+        <button class="role-btn"><i class="fa-solid fa-pen-ruler"></i> Build Quiz</button>
+      </a>
+
+      <!-- Student -->
+      <a class="role-card student-card animate__animated animate__fadeInRight" href="student.html"
+        style="animation-delay:0.2s">
+        <div class="role-icon"><i class="fa-solid fa-user-graduate"></i></div>
+        <span class="role-label">I'm a Student</span>
+        <p class="role-desc">Attempt the published quiz, submit your answers, and see your score instantly.</p>
+        <button class="role-btn"><i class="fa-solid fa-circle-play"></i> Take Quiz</button>
+      </a>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Check if a quiz is published in localStorage and update status dot
+    window.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('quizglass_quiz');
+      const dot = document.getElementById('statusDot');
+      const text = document.getElementById('statusText');
+      if (stored) {
+        dot.classList.add('live');
+        text.textContent = 'Quiz is live – students can take it now!';
+      }
+
+      // GSAP subtle float animation on role cards
+      if (window.gsap) {
+        gsap.from('.role-card', {
+          y: 30, opacity: 0, duration: 0.7,
+          stagger: 0.15, ease: 'power3.out', delay: 0.3
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

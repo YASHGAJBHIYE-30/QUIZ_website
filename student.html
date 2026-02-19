@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="QuizGlass Student – Take the quiz and see your score instantly." />
+    <title>QuizGlass – Take the Quiz (Student)</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div class="bg-blob blob1"></div>
+    <div class="bg-blob blob2"></div>
+    <div class="bg-blob blob3"></div>
+
+    <!-- HEADER -->
+    <header class="app-header animate__animated animate__fadeInDown">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="index.html" class="back-link" title="Home"><i class="fa-solid fa-arrow-left"></i></a>
+                <i class="fa-solid fa-user-graduate"></i>
+                <span>Take the Quiz</span>
+            </div>
+            <div class="header-controls">
+                <button class="glass-btn icon-btn" id="themeToggle" title="Toggle glass theme"
+                    aria-label="Toggle theme">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- NO QUIZ STATE -->
+        <section id="noQuizSection" class="glass-card hidden animate__animated animate__fadeInUp">
+            <div class="section-title centered">
+                <span class="step-badge"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                <div>
+                    <h2>No Quiz Available</h2>
+                    <p class="subtitle">Your teacher hasn't published a quiz yet. Please check back later.</p>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top: 24px;">
+                <a href="index.html" class="glass-btn secondary-btn">
+                    <i class="fa-solid fa-house"></i> Go Home
+                </a>
+            </div>
+        </section>
+
+        <!-- STUDENT QUIZ -->
+        <section id="studentSection" class="glass-card hidden animate__animated">
+            <div class="section-title">
+                <span class="step-badge accent"><i class="fa-solid fa-pencil"></i></span>
+                <div>
+                    <h2>Answer All Questions</h2>
+                    <p class="subtitle" id="quizSubtitle">Use the options below to select your answer</p>
+                </div>
+            </div>
+
+            <!-- Progress -->
+            <div class="progress-bar-wrap">
+                <div class="progress-dots" id="progressDots"></div>
+                <span class="progress-text" id="progressText">Question 1 of 5</span>
+            </div>
+
+            <!-- Question card -->
+            <div id="questionCard" class="question-card">
+                <p class="question-number" id="questionNumber">Question 1</p>
+                <p class="question-text" id="questionText"></p>
+                <div class="options-grid" id="optionsGrid"></div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="quiz-nav">
+                <button class="glass-btn secondary-btn" id="prevBtn" onclick="prevQuestion()">
+                    <i class="fa-solid fa-arrow-left"></i> Previous
+                </button>
+                <button class="glass-btn primary-btn" id="nextBtn" onclick="nextQuestion()">
+                    Next <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button class="glass-btn success-btn hidden" id="submitBtn" onclick="submitQuiz()">
+                    <i class="fa-solid fa-paper-plane"></i> Submit Quiz
+                </button>
+            </div>
+        </section>
+
+        <!-- RESULT SCREEN -->
+        <section id="resultSection" class="glass-card hidden animate__animated">
+            <div class="section-title centered">
+                <span class="step-badge gold"><i class="fa-solid fa-trophy"></i></span>
+                <div>
+                    <h2>Your Results</h2>
+                    <p class="subtitle">Here's how you did!</p>
+                </div>
+            </div>
+
+            <div class="score-reveal" id="scoreReveal">
+                <div class="score-circle">
+                    <svg viewBox="0 0 120 120" class="score-ring">
+                        <defs>
+                            <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#a78bfa" />
+                                <stop offset="100%" stop-color="#22d3ee" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="60" cy="60" r="52" class="ring-bg" />
+                        <circle cx="60" cy="60" r="52" class="ring-progress" id="ringProgress" />
+                    </svg>
+                    <div class="score-inner">
+                        <span class="score-num" id="scoreNum">0</span>
+                        <span class="score-denom">/5</span>
+                    </div>
+                </div>
+                <div class="score-meta">
+                    <p class="score-pct" id="scorePct">0%</p>
+                    <p class="score-msg" id="scoreMsg"></p>
+                </div>
+            </div>
+
+            <div class="answers-review" id="answersReview"></div>
+
+            <div class="result-actions">
+                <button class="glass-btn primary-btn" onclick="retakeQuiz()">
+                    <i class="fa-solid fa-rotate-left"></i> Retake Quiz
+                </button>
+                <a href="index.html" class="glass-btn secondary-btn">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="student.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="QuizGlass Teacher – Build and publish your 5-question MCQ quiz." />
+    <title>QuizGlass – Quiz Builder (Teacher)</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div class="bg-blob blob1"></div>
+    <div class="bg-blob blob2"></div>
+    <div class="bg-blob blob3"></div>
+
+    <!-- HEADER -->
+    <header class="app-header animate__animated animate__fadeInDown">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="index.html" class="back-link" title="Home"><i class="fa-solid fa-arrow-left"></i></a>
+                <i class="fa-solid fa-chalkboard-teacher"></i>
+                <span>Quiz Builder</span>
+            </div>
+            <div class="header-controls">
+                <label class="toggle-wrap" title="Shuffle Questions for students">
+                    <input type="checkbox" id="shuffleToggle" />
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    <span class="toggle-label"><i class="fa-solid fa-shuffle"></i> Shuffle</span>
+                </label>
+                <button class="glass-btn icon-btn" id="themeToggle" title="Toggle glass theme"
+                    aria-label="Toggle theme">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main-content">
+        <section id="teacherSection" class="glass-card animate__animated animate__fadeInUp">
+
+            <div class="section-title">
+                <span class="step-badge"><i class="fa-solid fa-pen-ruler"></i></span>
+                <div>
+                    <h1>Create Your Quiz</h1>
+                    <p class="subtitle">Fill in 5 questions with 4 options each, then publish for students.</p>
+                </div>
+            </div>
+
+            <!-- Published banner (hidden until quiz saved) -->
+            <div id="publishedBanner" class="published-banner hidden">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Quiz is <strong>live</strong>! Share <a href="student.html" target="_blank">student.html</a> with
+                    your students.</span>
+                <button class="glass-btn secondary-btn sm-btn" onclick="unlockQuiz()">
+                    <i class="fa-solid fa-lock-open"></i> Edit Quiz
+                </button>
+            </div>
+
+            <form id="quizBuilderForm" novalidate>
+                <div id="questionsContainer"></div>
+
+                <div class="form-actions">
+                    <span class="key-hint"><i class="fa-regular fa-keyboard"></i> <kbd>Ctrl+S</kbd> to publish</span>
+                    <button type="submit" class="glass-btn primary-btn" id="saveQuizBtn">
+                        <i class="fa-solid fa-paper-plane"></i> Publish Quiz
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="teacher.js"></script>
+</body>
+
+</html>
